@@ -38,8 +38,8 @@ class MainActivity : AppCompatActivity() {
             when(view.id) {
                 R.id.rightButton -> {
                     when(checkAnswer(questionNum)) {
-                        true -> resultTextView.text = "Right !"
-                        false -> resultTextView.text = "Wrong !"
+                        true -> resultTextView.text = "正解！"
+                        false -> resultTextView.text = "間違い！"
                     }
 
 //                    //正誤判定の別パターン。
@@ -51,16 +51,16 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.wrongButton -> {
                     when(checkAnswer(questionNum)) {
-                        true -> resultTextView.text = "Wrong !"
-                        false -> resultTextView.text = "Right !"
+                        true -> resultTextView.text = "間違い！"
+                        false -> resultTextView.text = "正解！"
                     }
                 }
             }
 
             //文字色を変更。
             when(resultTextView.text) {
-                "Right !" -> resultTextView.setTextColor(Color.parseColor("#4ada4a"))
-                "Wrong !" -> resultTextView.setTextColor(Color.parseColor("#da4a4a"))
+                "正解！" -> resultTextView.setTextColor(Color.parseColor("#4ada4a"))
+                "間違い！" -> resultTextView.setTextColor(Color.parseColor("#da4a4a"))
             }
 
             //次の問題を生成。
@@ -99,10 +99,10 @@ class MainActivity : AppCompatActivity() {
         for (i in 2 until questionNum-1) {
             if (questionNum%i == 0) {
                 answer = false
-                reasonTextView.text = "It's a multiple of ${i}"
+                reasonTextView.text = "${questionNum}は${i}の倍数だ！"
                 break
             } else {
-                reasonTextView.text = "It's a prime number"
+                reasonTextView.text = "${questionNum}は素数だ！"
             }
         }
 

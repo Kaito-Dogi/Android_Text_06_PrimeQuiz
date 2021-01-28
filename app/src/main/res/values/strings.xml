@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">PrimeQuiz</string>
-    <string name="explanatory_text">Is this a prime number ?</string>
+    <string name="app_name">素数クイズ</string>
+    <string name="explanatory_text">これは素数かな？</string>
 </resources>
