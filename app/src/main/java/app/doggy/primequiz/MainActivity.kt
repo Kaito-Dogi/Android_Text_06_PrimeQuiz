@@ -1,8 +1,14 @@
 package app.doggy.primequiz
 
+//関数内で使う変数をActivity内で宣言してもOKか。
+//makeQuestion()では戻り値を返すようにした方が良いか。
+//->関数内で変数を使うことになるので、こっちの方が良さそう？
+//makeQuestion()内に、問題作成とは直接関係ないTextViewに表示する処理も書いて良いか（読みやすいか）。
+
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.random.Random
@@ -23,8 +29,8 @@ class MainActivity : AppCompatActivity() {
         //最初の問題を生成。
         makeQuestion()
 
-//        //makeQuestion()の別パターン。
-//        questionNum = makeQuestion()
+//      //makeQuestion()の別パターン。
+//      questionNum = makeQuestion()
 
         //クリックリスナを設定。
         rightButton.setOnClickListener(JudgeListener())
@@ -37,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             //ボタンのidに応じて処理を変える。
             when(view.id) {
                 R.id.rightButton -> {
-                    when(checkAnswer(questionNum)) {
+                    when(judgeAnswer(questionNum)) {
                         true -> resultTextView.text = "正解！"
                         false -> resultTextView.text = "間違い！"
                     }
@@ -50,15 +56,16 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.wrongButton -> {
-                    when(checkAnswer(questionNum)) {
+                    when(judgeAnswer(questionNum)) {
                         true -> resultTextView.text = "間違い！"
                         false -> resultTextView.text = "正解！"
                     }
                 }
             }
 
-            //文字色を変更。
+            //正誤に応じて処理を変える。
             when(resultTextView.text) {
+                //文字色を変更。
                 "正解！" -> resultTextView.setTextColor(Color.parseColor("#4ada4a"))
                 "間違い！" -> resultTextView.setTextColor(Color.parseColor("#da4a4a"))
             }
@@ -91,21 +98,24 @@ class MainActivity : AppCompatActivity() {
 //    }
 
     //正誤判定。
-    private fun checkAnswer(questionNum: Int) :Boolean{
+    private fun judgeAnswer(questionNum: Int) :Boolean{
         //正誤判定の結果を格納する変数。
         var answer = true
 
         //素数かどうか判定。
-        for (i in 2 until questionNum-1) {
+        for (i in 2 until questionNum) {
             if (questionNum%i == 0) {
                 answer = false
                 reasonTextView.text = "${questionNum}は${i}の倍数だ！"
+                Log.d("judge", "${questionNum}は${i}の倍数だ！")
                 break
-            } else {
+            } else if (i+1 == questionNum) {
                 reasonTextView.text = "${questionNum}は素数だ！"
+                Log.d("judge", "${questionNum}は素数だ！")
             }
         }
 
+        Log.d("judge", answer.toString())
         return answer
 
     }
