@@ -121,31 +121,48 @@ class MainActivity : AppCompatActivity() {
 
     //正誤判定。
     private fun judgeAnswer(questionNum: Int) {
-        //素数かどうか判定。
-        for (i in 2 until questionNum) {
-            if (questionNum%i == 0) {
 
-                //questionNumは素数ではないので、false。
-                answer = false
+        //2かどうか判定。
+        if (questionNum == 2) {
 
-                toastMessage = "(${i}の倍数)"
+            //questionNumは素数なので、true。
+            answer = true
 
-                //素数か否かの判定結果をログ出力。
-                Log.d("judge", "${questionNum}:${i}の倍数")
+            toastMessage = "(素数)"
 
-                break
+            //素数か否かの判定結果をログ出力。
+            Log.d("judge", "${questionNum}:素数")
 
-            } else if (i+1 == questionNum) {
+        } else {
 
-                //questionNumは素数なので、true。
-                answer = true
+            //素数かどうか判定。
+            for (i in 2 until questionNum) {
 
-                toastMessage = "(素数)"
+                if (questionNum%i == 0) {
 
-                //素数か否かの判定結果をログ出力。
-                Log.d("judge", "${questionNum}:素数")
+                    //questionNumは素数ではないので、false。
+                    answer = false
+
+                    toastMessage = "(${i}の倍数)"
+
+                    //素数か否かの判定結果をログ出力。
+                    Log.d("judge", "${questionNum}:${i}の倍数")
+
+                    break
+
+                } else if (i+1 == questionNum) {
+
+                    //questionNumは素数なので、true。
+                    answer = true
+
+                    toastMessage = "(素数)"
+
+                    //素数か否かの判定結果をログ出力。
+                    Log.d("judge", "${questionNum}:素数")
+                }
             }
         }
+
         //正誤判定をログ出力。
         Log.d("judge", answer.toString())
     }
